@@ -8,6 +8,12 @@ import (
 	"github.com/plexusone/findingspec/security"
 )
 
+// sampleReport is a gitleaks JSON report fixture for the redaction tests. The
+// "secrets" it contains are not real credentials: AKIAIOSFODNN7EXAMPLE is AWS's
+// public documentation example access key, and sk_live_abcd1234efgh5678 is an
+// obviously fake token.
+//
+//nolint:gosec // G101 false positive: documented example / fake keys in a test fixture, not real credentials
 const sampleReport = `[
   {
     "Description": "AWS Access Key",
