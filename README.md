@@ -1,4 +1,29 @@
-# findingspec
+# FindingSpec
+
+[![Go CI][go-ci-svg]][go-ci-url]
+[![Go Lint][go-lint-svg]][go-lint-url]
+[![Go SAST][go-sast-svg]][go-sast-url]
+[![Docs][docs-godoc-svg]][docs-godoc-url]
+[![Docs][docs-mkdoc-svg]][docs-mkdoc-url]
+[![Visualization][viz-svg]][viz-url]
+[![License][license-svg]][license-url]
+
+ [go-ci-svg]: https://github.com/plexusone/findingspec/actions/workflows/go-ci.yaml/badge.svg?branch=main
+ [go-ci-url]: https://github.com/plexusone/findingspec/actions/workflows/go-ci.yaml
+ [go-lint-svg]: https://github.com/plexusone/findingspec/actions/workflows/go-lint.yaml/badge.svg?branch=main
+ [go-lint-url]: https://github.com/plexusone/findingspec/actions/workflows/go-lint.yaml
+ [go-sast-svg]: https://github.com/plexusone/findingspec/actions/workflows/go-sast-codeql.yaml/badge.svg?branch=main
+ [go-sast-url]: https://github.com/plexusone/findingspec/actions/workflows/go-sast-codeql.yaml
+ [docs-godoc-svg]: https://pkg.go.dev/badge/github.com/plexusone/findingspec
+ [docs-godoc-url]: https://pkg.go.dev/github.com/plexusone/findingspec
+ [docs-mkdoc-svg]: https://img.shields.io/badge/Go-dev%20guide-blue.svg
+ [docs-mkdoc-url]: https://plexusone.dev/findingspec
+ [viz-svg]: https://img.shields.io/badge/Go-visualizaton-blue.svg
+ [viz-url]: https://mango-dune-07a8b7110.1.azurestaticapps.net/?repo=plexusone%2Ffindingspec
+ [loc-svg]: https://tokei.rs/b1/github/plexusone/findingspec
+ [repo-url]: https://github.com/plexusone/findingspec
+ [license-svg]: https://img.shields.io/badge/license-MIT-blue.svg
+ [license-url]: https://github.com/plexusone/findingspec/blob/main/LICENSE
 
 `findingspec` is a Go module defining a **domain-neutral model for findings** —
 anything that needs attention — across multiple problem domains: security,
