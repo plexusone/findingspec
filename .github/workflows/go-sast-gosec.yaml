@@ -1,0 +1,14 @@
+name: Go SAST (gosec)
+
+# gosec is deterministic on source and is run locally via `make sast` / `make
+# gosec`; this workflow is manual (workflow_dispatch) to conserve runner minutes.
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+
+jobs:
+  gosec:
+    uses: plexusone/.github/.github/workflows/go-sast-gosec.yaml@main
