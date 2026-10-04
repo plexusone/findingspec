@@ -1,0 +1,9 @@
+name: Go Lint
+permissions:
+  contents: read
+on:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    uses: plexusone/.github/.github/workflows/go-lint.yaml@main
