@@ -1,0 +1,60 @@
+site_name: findingspec Documentation
+site_description: Domain-neutral finding model for security, accessibility, i18n, and quality engineering
+site_url: https://plexusone.github.io/findingspec/
+repo_url: https://github.com/plexusone/findingspec
+repo_name: plexusone/findingspec
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+    - toc.integrate
+
+markdown_extensions:
+  - tables
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quickstart.md
+  - Concepts:
+      - Finding Model: concepts/finding-model.md
+      - Severity: concepts/severity.md
+      - Interchange & Adapters: concepts/interchange.md
+  - Domains:
+      - Security: domains/security.md
+      - Accessibility (a11y): domains/a11y.md
+      - Internationalization (i18n): domains/i18n.md
+      - Quality Engineering (qe): domains/qe.md
+  - Reference:
+      - Location: reference/location.md
+      - Evidence, Remediation & Metadata: reference/evidence-remediation.md
+  - Specs:
+      - PRD: specs/PRD.md
+      - TRD: specs/TRD.md
+      - Roadmap: specs/ROADMAP.md
