@@ -118,6 +118,33 @@ f := v.ToFinding() // Domain=security, Severity=critical (inherent), RuleID="CWE
 from `CVSS.Severity()`. `RuleID` is derived from the most specific classifier
 available — the first CWE, else the first CVE.
 
+## Analysis, verification, and disclosure
+
+A `Vulnerability` can carry the analysis that turns a report into an actionable
+record. These fields live in `Detail`, except `Verification` and
+`Relationships`, which belong to the core `Finding`.
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `RootCause` | `*RootCause` | Why the weakness exists: summary, components, missing control, trust boundary |
+| `Impact` | `*Impact` | Technical and product consequence, and the surfaces affected |
+| `Exploit` | `*Exploit` | Preconditions, scenario, and reproduction. Sensitive: keep in private stores |
+| `Publication` | `*Publication` | Disclosure lifecycle: visibility, state, affected version ranges, GHSA, CVE, OSV, and Go vulnerability IDs |
+| `Verification` | `*findingspec.Verification` | How the fix was proven: result, method, and the checks that pass |
+| `Relationships` | `[]findingspec.Relationship` | Typed links to threats, controls, requirements, work items, fixes, and tests |
+
+Relationship targets are opaque references (a roadmap item ID, a commit hash, a
+URI). findingspec does not resolve them, which keeps the core independent of the
+systems it links to.
+
+### Private by default
+
+Findings that describe exploitable weaknesses, especially in releases users may
+still run, belong in a private store. `Publication.Visibility` records whether a
+sanitized public projection is permitted. Generate a public advisory from the
+private record through an explicit review; do not redact the private record in
+place, and do not commit the original and sanitize it later.
+
 ## Package vulnerabilities (SCA & container)
 
 For dependency (SCA) and container scans, `Vulnerability` carries three extra
