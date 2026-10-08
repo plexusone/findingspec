@@ -40,6 +40,11 @@ type Finding struct {
 	Evidence []Evidence `json:"evidence,omitempty"`
 	// Remediation describes how to fix the finding.
 	Remediation *Remediation `json:"remediation,omitempty"`
+	// Verification records how the remediation was proven.
+	Verification *Verification `json:"verification,omitempty"`
+	// Relationships link the finding to threats, controls, requirements, work
+	// items, fixes, and tests.
+	Relationships []Relationship `json:"relationships,omitempty"`
 	// References links to external material.
 	References []Reference `json:"references,omitempty"`
 	// Tags are free-form labels for filtering and grouping.
