@@ -260,6 +260,7 @@ Control constants:
 | `Status` | `string` | `requested`, `approved`, `rejected`, or `expired` |
 | `ApprovedAt` | `*time.Time` | When approved |
 | `ApprovedBy` | `string` | Approver |
+| `Rationale` | `string` | Approver's justification for accepting the risk |
 | `ExpiresAt` | `*time.Time` | When the approval expires |
 | `Reference` | `string` | Ticket or record reference |
 | `URL` | `string` | Link to the record |
