@@ -14,7 +14,9 @@ findingspec (core)      Finding, FindingSet, Severity, Status, Confidence,
 ├── security            Vulnerability, CVSS, Control, Exception, Exploitability
 ├── a11y                Issue, ConformanceLevel, Impact
 ├── i18n                Issue, Kind
-└── qe                  Failure
+├── qe                  Failure
+└── report              WriteMarkdown, Options, Audience (consumer of the core
+                        and the security domain; nothing imports it)
 ```
 
 ## Core types
@@ -46,6 +48,34 @@ with function, reduced dimensions, and justified CVSS environmental metrics), an
 `Exception` (approval state with expiry). `EffectiveSeverity(t)` returns residual
 severity only while an exception is approved and unexpired.
 
+## Report rendering
+
+`report.WriteMarkdown(w, set, opts)` renders a `FindingSet` as pandoc-flavoured
+Markdown. It reads only the canonical `Finding` plus, for security findings,
+the `VulnerabilityDetail` payload; other domains render from the header fields.
+
+- **Structure:** a YAML metadata block (title, subtitle, authors, date,
+  classification, toc), a distribution notice, executive summary with a
+  severity table covering every level and count tables by repository and
+  domain when there is more than one, author-written sections, a findings
+  overview whose IDs link to each finding, detailed findings grouped by
+  severity, and appendices.
+- **Ordering:** a copy of the set is sorted with `SortBySeverity`; the input is
+  not modified.
+- **Audience:** `AudienceShareable` (default) omits `Exploit`, `Evidence`, and
+  `Location.Snippet`; `AudienceInternal` includes them. `Remediation.AgentPrompt`
+  is included only when `IncludeAgentPrompts` is set.
+- **Escaping:** free-text finding fields are plain text. Inline Markdown,
+  pandoc citation (`@`), math (`$`), and raw HTML characters are
+  backslash-escaped, line-start block markers are guarded, and matched
+  backtick code spans are kept. Author-supplied summary, scope, and section
+  bodies are Markdown and written verbatim.
+- **Anchors:** each finding heading carries an explicit `{#finding-<id>}`
+  identifier, deduplicated when two IDs normalize to the same anchor.
+  Relationships whose target is in the set become internal links.
+- **Tables:** pipe tables whose separator dash counts set pandoc's relative
+  column widths, so long titles wrap within the page in DOCX and PDF.
+
 ## Conventions
 
 - JSON tags use camelCase (API/document-format surface).
@@ -59,4 +89,6 @@ severity only while an exception is approved and unexpired.
 
 Unit tests cover severity parsing/ordering, finding validation, set
 filtering/counting/sorting, CVSS→severity mapping, effective-severity under
-exceptions, and each domain's `ToFinding` projection.
+exceptions, each domain's `ToFinding` projection, and report rendering
+(audience filtering, escaping, ordering, anchors, and a pandoc parse check that
+is skipped when pandoc is not installed).

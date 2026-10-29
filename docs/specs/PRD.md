@@ -14,7 +14,9 @@ something that needs attention" independent of the tool that found it.
 Provide a small, dependency-light Go model that represents a **finding** in a
 **domain-neutral** way, while letting each domain keep its own semantically-rich
 types. One representation should support prioritization, filtering, reporting,
-and remediation across security, a11y, i18n, and quality-engineering findings.
+and remediation across security, a11y, i18n, and quality-engineering findings,
+and should render into a formal report that people can read, sign off, and
+distribute.
 
 ## Users
 
@@ -22,6 +24,8 @@ and remediation across security, a11y, i18n, and quality-engineering findings.
   auditors, E2E test runners) that emit findings.
 - **Consumers** — dashboards, prioritization engines, and AI remediation agents
   that aggregate findings across domains.
+- **Report readers** — engineering owners, security and compliance reviewers,
+  and leadership who receive findings as a document rather than as data.
 
 ## Requirements
 
@@ -34,7 +38,12 @@ and remediation across security, a11y, i18n, and quality-engineering findings.
    into `Finding` via `ToFinding`, without the core depending on any domain.
 4. A `FindingSet` with filtering, counting, and severity ordering.
 5. Remediation guidance expressible as an instruction for an AI builder.
-6. Minimal core dependencies — only the shared priority-frameworks severity
+6. Report rendering: a `FindingSet` renders to a formal Markdown report
+   (metadata, executive summary, severity tables, findings overview, and a
+   detailed section per finding) that pandoc converts to DOCX, PDF, or HTML.
+   Reports are written for an audience: a shareable report omits exploit
+   detail, evidence payloads, and code snippets, and is the default.
+7. Minimal core dependencies — only the shared priority-frameworks severity
    framework, which supplies the canonical severity vocabulary and ordering.
 
 ## Non-goals
@@ -42,10 +51,14 @@ and remediation across security, a11y, i18n, and quality-engineering findings.
 - Reproducing every producer's native schema.
 - Being a scanning or assessment engine — `findingspec` is a representation, not
   a producer.
-- Report rendering, storage, or transport (these belong to consuming systems).
+- Storage or transport of findings (these belong to consuming systems).
+- Document-format conversion and visual styling. The renderer emits Markdown;
+  pandoc and a reference template own DOCX/PDF output and branding.
 
 ## Success criteria
 
 - A consumer can aggregate findings from at least two domains into one
   `FindingSet` and prioritize them by severity with no domain-specific code.
 - Adding a new domain requires only a new package projecting into `Finding`.
+- A `FindingSet` renders to a report that pandoc converts to DOCX and PDF
+  without warnings, and a shareable report contains no exploit detail.

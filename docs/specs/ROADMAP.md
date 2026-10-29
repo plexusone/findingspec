@@ -71,3 +71,9 @@ member RMI statuses. RMI IDs are stable (`RMI-FINDINGSPEC-<NNN>`).
 - **RMI-FINDINGSPEC-011** — Remediation `AgentPrompt` conventions for AI builders.
 - **RMI-FINDINGSPEC-012** — Reference consumer example aggregating multi-domain
   findings into a single prioritized view.
+- **RMI-FINDINGSPEC-021** — Report rendering: the `report` package renders a
+  `FindingSet` as pandoc-ready Markdown (metadata block, executive summary,
+  severity and repository tables, linked findings overview, per-finding
+  detail) for an internal or shareable audience. *Status: done.* Follow-ups:
+  a CLI over the package, a reference DOCX template, and per-domain detail
+  sections for a11y, i18n, and qe.
