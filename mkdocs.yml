@@ -54,6 +54,7 @@ nav:
   - Reference:
       - Location: reference/location.md
       - Evidence, Remediation & Metadata: reference/evidence-remediation.md
+      - Reports: reference/report.md
   - Specs:
       - PRD: specs/PRD.md
       - TRD: specs/TRD.md

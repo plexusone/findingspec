@@ -46,13 +46,15 @@ findingspec              canonical Finding, FindingSet, and shared vocabulary
 ├── security             vulnerabilities & secrets, CVSS/CWE/CVE, residual risk
 ├── a11y                 WCAG accessibility issues
 ├── i18n                 internationalization / localization issues
-└── qe                   quality-engineering findings (E2E tests, journeys)
+├── qe                   quality-engineering findings (E2E tests, journeys)
+└── report               formal Markdown reports for pandoc (DOCX, PDF, HTML)
 ```
 
 The core package's only external dependency is the shared
 [priority-frameworks](https://github.com/grokify/priority-frameworks) severity
 framework, and it does not import any domain package, keeping the shared
-vocabulary neutral. Only domain packages depend on the core.
+vocabulary neutral. Only domain packages and the `report` renderer depend on
+the core.
 
 ### Shared vocabulary
 
@@ -106,6 +108,21 @@ func main() {
 	fmt.Println(set.CountByDomain()) // map[a11y:1 security:1]
 }
 ```
+
+## Reports
+
+`report.WriteMarkdown` renders a `FindingSet` as a formal report: a pandoc
+metadata block, executive summary and severity tables, a linked findings
+overview, and a detailed section per finding. Convert it with pandoc:
+
+```bash
+pandoc report.md -o report.docx --reference-doc=template.docx
+pandoc report.md -o report.pdf --pdf-engine=xelatex
+```
+
+The default shareable audience leaves out exploit steps, evidence payloads,
+and code snippets; `report.AudienceInternal` includes them. See
+[Reports](https://plexusone.github.io/findingspec/reference/report/).
 
 ## Documentation
 
