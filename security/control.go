@@ -54,9 +54,11 @@ type Exception struct {
 	Status     string     `json:"status,omitempty"`
 	ApprovedAt *time.Time `json:"approvedAt,omitempty"`
 	ApprovedBy string     `json:"approvedBy,omitempty"`
-	ExpiresAt  *time.Time `json:"expiresAt,omitempty"`
-	Reference  string     `json:"reference,omitempty"`
-	URL        string     `json:"url,omitempty"`
+	// Rationale is the approver's stated justification for accepting the risk.
+	Rationale string     `json:"rationale,omitempty"`
+	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
+	Reference string     `json:"reference,omitempty"`
+	URL       string     `json:"url,omitempty"`
 }
 
 // IsApprovedAt reports whether the exception is approved and unexpired as of t.
