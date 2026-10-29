@@ -82,6 +82,9 @@
     "highlights": [
       {
         "description": "Security findings can now carry root cause, product impact, exploit notes, verification, typed relationships to work items and fixes, and a disclosure lifecycle, so one record spans discovery, engineering fix, and product impact"
+      },
+      {
+        "description": "Findings render into a formal report that pandoc converts to DOCX or PDF, with a shareable audience that keeps exploit detail out"
       }
     ],
     "added": [
@@ -90,6 +93,12 @@
       },
       {
         "description": "`security`: `RootCause`, `Impact`, `Exploit`, and `Publication` (visibility, disclosure state, GHSA/CVE/OSV/Go vulnerability IDs, affected version ranges) on `Vulnerability` and its `Detail`"
+      },
+      {
+        "description": "`security`: `Exception.Rationale`, the approver's stated justification for accepting a risk, so an accepted vulnerability can be reported with its reason"
+      },
+      {
+        "description": "`report`: render a `FindingSet` as a formal, pandoc-ready Markdown report (metadata block, executive summary, severity tables, linked findings overview, per-finding detail) for a shareable or internal audience; the shareable default omits exploit detail, evidence payloads, and code snippets"
       }
     ]
   }
