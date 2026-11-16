@@ -24,13 +24,17 @@ const (
 	// error-rate or latency regressions, and failing web vitals, derived from
 	// APM, synthetic monitoring, or RUM signals.
 	DomainObservability Domain = "observability"
+	// DomainContent covers the accuracy and attribution of published
+	// content: claims a source does not support, quotations that cannot be
+	// found in their source, and citations to unreliable sources.
+	DomainContent Domain = "content"
 )
 
 // Domains returns all known domains in a stable order.
 func Domains() []Domain {
 	return []Domain{
 		DomainSecurity, DomainA11y, DomainI18n, DomainQE,
-		DomainCompliance, DomainObservability,
+		DomainCompliance, DomainObservability, DomainContent,
 	}
 }
 
@@ -38,7 +42,7 @@ func Domains() []Domain {
 func (d Domain) Valid() bool {
 	switch d {
 	case DomainSecurity, DomainA11y, DomainI18n, DomainQE,
-		DomainCompliance, DomainObservability:
+		DomainCompliance, DomainObservability, DomainContent:
 		return true
 	default:
 		return false
