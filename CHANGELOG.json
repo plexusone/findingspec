@@ -71,6 +71,10 @@
           "commit": "3b1c059"
         },
         {
+          "description": "Documentation site uses the PlexusOne MkDocs theme and site navigation",
+          "commit": "cb25904"
+        },
+        {
           "description": "v0.2.0 release notes"
         }
       ]
