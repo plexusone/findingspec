@@ -27,7 +27,7 @@
 
 `findingspec` is a Go module defining a **domain-neutral model for findings** —
 anything that needs attention — across multiple problem domains: security,
-accessibility (a11y), internationalization (i18n), and quality engineering (qe).
+accessibility (a11y), internationalization (i18n), quality engineering (qe), and content.
 
 A single canonical `Finding` type carries the fields common to every domain
 (identity, severity, status, location, evidence, remediation). Each domain
@@ -47,6 +47,7 @@ findingspec              canonical Finding, FindingSet, and shared vocabulary
 ├── a11y                 WCAG accessibility issues
 ├── i18n                 internationalization / localization issues
 ├── qe                   quality-engineering findings (E2E tests, journeys)
+├── content              claims and their sources: attribution and accuracy
 └── report               formal Markdown reports for pandoc (DOCX, PDF, HTML)
 ```
 

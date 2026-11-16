@@ -51,6 +51,7 @@ nav:
       - Accessibility (a11y): domains/a11y.md
       - Internationalization (i18n): domains/i18n.md
       - Quality Engineering (qe): domains/qe.md
+      - Content: domains/content.md
   - Reference:
       - Location: reference/location.md
       - Evidence, Remediation & Metadata: reference/evidence-remediation.md
