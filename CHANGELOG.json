@@ -10,6 +10,72 @@
   ],
   "releases": [
     {
+      "version": "v0.2.0",
+      "date": "2026-11-15",
+      "highlights": [
+        {
+          "description": "A `content` domain for the accuracy and attribution of published content: a claim its cited source does not support, a quotation not found in its source, a citation to an unreliable source. Claim checkers raise these findings and carry them through review with the shared status lifecycle"
+        },
+        {
+          "description": "Security findings can now carry root cause, product impact, exploit notes, verification, typed relationships to work items and fixes, and a disclosure lifecycle, so one record spans discovery, engineering fix, and product impact"
+        },
+        {
+          "description": "Findings render into a formal report that pandoc converts to DOCX or PDF, with a shareable audience that keeps exploit detail out"
+        }
+      ],
+      "added": [
+        {
+          "description": "`findingspec`: typed `Relationship` links (threat, control, requirement, tracking item, fix, test, duplicate) and `Verification` on `Finding`",
+          "commit": "884978a"
+        },
+        {
+          "description": "`security`: `RootCause`, `Impact`, `Exploit`, and `Publication` (visibility, disclosure state, GHSA/CVE/OSV/Go vulnerability IDs, affected version ranges) on `Vulnerability` and its `Detail`",
+          "commit": "69339fe"
+        },
+        {
+          "description": "`security`: `Exception.Rationale`, the approver's stated justification for accepting a risk, so an accepted vulnerability can be reported with its reason",
+          "commit": "0c3cff0"
+        },
+        {
+          "description": "`report`: render a `FindingSet` as a formal, pandoc-ready Markdown report (metadata block, executive summary, severity tables, linked findings overview, per-finding detail) for a shareable or internal audience; the shareable default omits exploit detail, evidence payloads, and code snippets",
+          "commit": "f5d9840"
+        },
+        {
+          "description": "`findingspec`: `DomainContent`, for findings about claims and their sources",
+          "commit": "b6b825b"
+        },
+        {
+          "description": "`content`: `Issue`, a problem with one claim or one of its sources, projected by `ToFinding` with the claim as the location (`Location.Component` the claim ID, `File` the document, `Snippet` the statement) and `claim:`/`source:` tags; `ClaimID` reads the claim back from a finding",
+          "commit": "b6b825b"
+        },
+        {
+          "description": "`content`: twelve common rule IDs, from `content.evidence.none` and `content.quote.notFound` to `content.facts.missing` and `content.claim.singleSource`",
+          "commit": "b6b825b"
+        }
+      ],
+      "documentation": [
+        {
+          "description": "Analysis, verification, and disclosure fields on security findings",
+          "commit": "e5061ed"
+        },
+        {
+          "description": "Exception rationale in the security domain guide",
+          "commit": "45794ee"
+        },
+        {
+          "description": "Report reference page, README section, and navigation; report rendering in the PRD, TRD, and roadmap",
+          "commit": "3dfa3a0"
+        },
+        {
+          "description": "Content domain guide with its rules and how a finding's status follows it through a review funnel",
+          "commit": "3b1c059"
+        },
+        {
+          "description": "v0.2.0 release notes"
+        }
+      ]
+    },
+    {
       "version": "v0.1.0",
       "date": "2026-10-04",
       "commit": "e0d5aec",
@@ -77,29 +143,5 @@
         }
       ]
     }
-  ],
-  "unreleased": {
-    "highlights": [
-      {
-        "description": "Security findings can now carry root cause, product impact, exploit notes, verification, typed relationships to work items and fixes, and a disclosure lifecycle, so one record spans discovery, engineering fix, and product impact"
-      },
-      {
-        "description": "Findings render into a formal report that pandoc converts to DOCX or PDF, with a shareable audience that keeps exploit detail out"
-      }
-    ],
-    "added": [
-      {
-        "description": "`findingspec`: typed `Relationship` links (threat, control, requirement, tracking item, fix, test, duplicate) and `Verification` on `Finding`"
-      },
-      {
-        "description": "`security`: `RootCause`, `Impact`, `Exploit`, and `Publication` (visibility, disclosure state, GHSA/CVE/OSV/Go vulnerability IDs, affected version ranges) on `Vulnerability` and its `Detail`"
-      },
-      {
-        "description": "`security`: `Exception.Rationale`, the approver's stated justification for accepting a risk, so an accepted vulnerability can be reported with its reason"
-      },
-      {
-        "description": "`report`: render a `FindingSet` as a formal, pandoc-ready Markdown report (metadata block, executive summary, severity tables, linked findings overview, per-finding detail) for a shareable or internal audience; the shareable default omits exploit detail, evidence payloads, and code snippets"
-      }
-    ]
-  }
+  ]
 }
