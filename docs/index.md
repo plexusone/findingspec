@@ -1,8 +1,8 @@
 # findingspec
 
 **A domain-neutral model for findings — anything that needs attention — across
-security, accessibility (a11y), internationalization (i18n), and quality
-engineering (qe).**
+security, accessibility (a11y), internationalization (i18n), quality
+engineering (qe), and content (claims and their sources).**
 
 A single canonical [`Finding`](concepts/finding-model.md) type carries the fields
 common to every domain (identity, severity, status, location, evidence,
@@ -29,7 +29,9 @@ findingspec              canonical Finding, FindingSet, and shared vocabulary
 ├── security             vulnerabilities & secrets, CVSS/CWE/CVE, residual risk
 ├── a11y                 WCAG accessibility issues
 ├── i18n                 internationalization / localization issues
-└── qe                   quality-engineering findings (E2E tests, journeys)
+├── qe                   quality-engineering findings (E2E tests, journeys)
+├── content              claims and their sources: attribution and accuracy
+└── report               formal Markdown reports for pandoc (DOCX, PDF, HTML)
 ```
 
 The core package's only external dependency is the shared
@@ -67,7 +69,7 @@ fmt.Println(set.CountByDomain()) // map[a11y:1 security:1]
 - [Quick Start](getting-started/quickstart.md)
 - [Finding Model](concepts/finding-model.md) — the canonical `Finding` and `FindingSet`
 - [Severity](concepts/severity.md) — the shared severity vocabulary
-- Domains: [Security](domains/security.md) · [a11y](domains/a11y.md) · [i18n](domains/i18n.md) · [qe](domains/qe.md)
+- Domains: [Security](domains/security.md) · [a11y](domains/a11y.md) · [i18n](domains/i18n.md) · [qe](domains/qe.md) · [content](domains/content.md)
 
 ## Relationship to govex
 

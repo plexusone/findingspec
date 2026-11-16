@@ -110,6 +110,28 @@ func main() {
 }
 ```
 
+## Content Findings
+
+The `content` domain records problems with claims and their sources, such as a quotation that is not in its source.
+The claim is the finding's location, so a claim checker can raise findings in a static scan and carry each through
+review with the shared status lifecycle: `open`, then `confirmed` or `false_positive`, then `resolved` or `accepted`.
+
+```go
+f := content.Issue{
+	ID:        "CF-1",
+	Rule:      content.RuleQuoteNotFound,
+	Title:     "Quotation not found in its source",
+	ClaimID:   "claim-founding",
+	Statement: "The company was founded in 1929.",
+	SourceRef: "src-history",
+	Status:    findingspec.StatusOpen,
+}.ToFinding()
+
+content.ClaimID(f) // "claim-founding"
+```
+
+See [Content](docs/domains/content.md) for the rules.
+
 ## Reports
 
 `report.WriteMarkdown` renders a `FindingSet` as a formal report: a pandoc

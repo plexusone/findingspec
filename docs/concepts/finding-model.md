@@ -10,7 +10,7 @@ representation and the shared vocabulary every domain draws on.
 | Field | Type | Notes |
 |-------|------|-------|
 | `ID` | `string` | Stable identifier, unique within its producer |
-| `Domain` | `Domain` | Broad area — `security` / `a11y` / `i18n` / `qe` / `compliance` / `observability` |
+| `Domain` | `Domain` | Broad area — `security` / `a11y` / `i18n` / `qe` / `compliance` / `observability` / `content` |
 | `Type` | `string` | Finding class within the domain (`sast`, `sca`, `secret`, `wcag`, `e2e`, `apm`, `cis`, …) |
 | `RuleID` | `string` | Domain rule/check id (CWE, WCAG criterion, lint rule, journey/step) |
 | `Title` | `string` | Short human-readable summary |
@@ -41,6 +41,7 @@ the two-level `Domain` + `Type` taxonomy:
 | `i18n` | `missing-translation`, … | key / locale |
 | `qe` | `e2e` · `functional` | journey / step / expected vs actual |
 | `observability` | `apm` · `synthetic` · `rum` · `slo` | service/latency · monitor/uptime · web-vital · SLA target vs actual |
+| `content` | `claim` | claim ID / statement / cited source |
 
 Producers set the detail with `SetDetail`; consumers decode it with the generic
 `DetailAs[T]`, keyed on `Type`:
@@ -162,7 +163,7 @@ that projects into `Finding`.
 
 ## Enumerations
 
-- **`Domain`** — `security`, `a11y`, `i18n`, `qe`, `compliance`, `observability`.
+- **`Domain`** — `security`, `a11y`, `i18n`, `qe`, `compliance`, `observability`, `content`.
   `Domains()` lists them; `Valid()` checks one.
 - **`Status`** — `open`, `confirmed`, `remediated`, `accepted`, `false_positive`,
   `resolved`. `Status.Open()` reports whether a finding still needs attention.

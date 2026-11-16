@@ -1,11 +1,11 @@
 // Package findingspec defines a domain-neutral model for representing a
 // finding — anything that needs attention — across multiple problem domains:
-// security, accessibility (a11y), internationalization (i18n), and quality
-// engineering (qe).
+// security, accessibility (a11y), internationalization (i18n), quality
+// engineering (qe), and content (claims and their sources).
 //
 // The canonical [Finding] type carries the fields common to every domain
 // (identity, severity, status, location, evidence, remediation). Domain
-// packages under this module (security, a11y, i18n, qe) define richer,
+// packages under this module (security, a11y, i18n, qe, content) define richer,
 // semantically-typed findings and project them into a [Finding] via a
 // ToFinding method, so producers keep domain-specific detail while consumers
 // can reason over a single, uniform representation.

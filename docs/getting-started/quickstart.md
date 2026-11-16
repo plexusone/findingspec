@@ -97,4 +97,4 @@ for _, f := range set.Findings {
 
 - [Finding Model](../concepts/finding-model.md) — the full `Finding`/`FindingSet` API
 - [Severity](../concepts/severity.md) — parsing, ordering, and CVSS mapping
-- [Security](../domains/security.md) · [a11y](../domains/a11y.md) · [i18n](../domains/i18n.md) · [qe](../domains/qe.md)
+- [Security](../domains/security.md) · [a11y](../domains/a11y.md) · [i18n](../domains/i18n.md) · [qe](../domains/qe.md) · [content](../domains/content.md)
