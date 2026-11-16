@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://plexusone.github.io/findingspec/specs/PRD/">
       
       
-        <link rel="prev" href="../../reference/evidence-remediation/">
+        <link rel="prev" href="../../reference/report/">
       
       
         <link rel="next" href="../TRD/">
@@ -710,6 +710,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../domains/content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -814,6 +842,34 @@
     
   
     Evidence, Remediation & Metadata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reports
   
 
     
@@ -1181,6 +1237,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../releases/v0.2.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.2.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../releases/v0.1.0/" class="md-nav__link">
         
   
@@ -1241,13 +1325,17 @@ something that needs attention" independent of the tool that found it.</p>
 <p>Provide a small, dependency-light Go model that represents a <strong>finding</strong> in a
 <strong>domain-neutral</strong> way, while letting each domain keep its own semantically-rich
 types. One representation should support prioritization, filtering, reporting,
-and remediation across security, a11y, i18n, and quality-engineering findings.</p>
+and remediation across security, a11y, i18n, and quality-engineering findings,
+and should render into a formal report that people can read, sign off, and
+distribute.</p>
 <h2 id="users">Users<a class="headerlink" href="#users" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Producers</strong> — scanners and assessors (e.g. security scanners, accessibility
   auditors, E2E test runners) that emit findings.</li>
 <li><strong>Consumers</strong> — dashboards, prioritization engines, and AI remediation agents
   that aggregate findings across domains.</li>
+<li><strong>Report readers</strong> — engineering owners, security and compliance reviewers,
+  and leadership who receive findings as a document rather than as data.</li>
 </ul>
 <h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <ol>
@@ -1260,6 +1348,11 @@ and remediation across security, a11y, i18n, and quality-engineering findings.</
    into <code>Finding</code> via <code>ToFinding</code>, without the core depending on any domain.</li>
 <li>A <code>FindingSet</code> with filtering, counting, and severity ordering.</li>
 <li>Remediation guidance expressible as an instruction for an AI builder.</li>
+<li>Report rendering: a <code>FindingSet</code> renders to a formal Markdown report
+   (metadata, executive summary, severity tables, findings overview, and a
+   detailed section per finding) that pandoc converts to DOCX, PDF, or HTML.
+   Reports are written for an audience: a shareable report omits exploit
+   detail, evidence payloads, and code snippets, and is the default.</li>
 <li>Minimal core dependencies — only the shared priority-frameworks severity
    framework, which supplies the canonical severity vocabulary and ordering.</li>
 </ol>
@@ -1268,13 +1361,17 @@ and remediation across security, a11y, i18n, and quality-engineering findings.</
 <li>Reproducing every producer's native schema.</li>
 <li>Being a scanning or assessment engine — <code>findingspec</code> is a representation, not
   a producer.</li>
-<li>Report rendering, storage, or transport (these belong to consuming systems).</li>
+<li>Storage or transport of findings (these belong to consuming systems).</li>
+<li>Document-format conversion and visual styling. The renderer emits Markdown;
+  pandoc and a reference template own DOCX/PDF output and branding.</li>
 </ul>
 <h2 id="success-criteria">Success criteria<a class="headerlink" href="#success-criteria" title="Permanent link">&para;</a></h2>
 <ul>
 <li>A consumer can aggregate findings from at least two domains into one
   <code>FindingSet</code> and prioritize them by severity with no domain-specific code.</li>
 <li>Adding a new domain requires only a new package projecting into <code>Finding</code>.</li>
+<li>A <code>FindingSet</code> renders to a report that pandoc converts to DOCX and PDF
+  without warnings, and a shareable report contains no exploit detail.</li>
 </ul>
 
 

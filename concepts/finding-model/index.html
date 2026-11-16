@@ -840,6 +840,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../domains/content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -944,6 +972,34 @@
     
   
     Evidence, Remediation & Metadata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reports
   
 
     
@@ -1198,6 +1254,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../releases/v0.2.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.2.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../releases/v0.1.0/" class="md-nav__link">
         
   
@@ -1268,7 +1352,7 @@ representation and the shared vocabulary every domain draws on.</p>
 <tr>
 <td><code>Domain</code></td>
 <td><code>Domain</code></td>
-<td>Broad area — <code>security</code> / <code>a11y</code> / <code>i18n</code> / <code>qe</code> / <code>compliance</code> / <code>observability</code></td>
+<td>Broad area — <code>security</code> / <code>a11y</code> / <code>i18n</code> / <code>qe</code> / <code>compliance</code> / <code>observability</code> / <code>content</code></td>
 </tr>
 <tr>
 <td><code>Type</code></td>
@@ -1390,6 +1474,11 @@ the two-level <code>Domain</code> + <code>Type</code> taxonomy:</p>
 <td><code>apm</code> · <code>synthetic</code> · <code>rum</code> · <code>slo</code></td>
 <td>service/latency · monitor/uptime · web-vital · SLA target vs actual</td>
 </tr>
+<tr>
+<td><code>content</code></td>
+<td><code>claim</code></td>
+<td>claim ID / statement / cited source</td>
+</tr>
 </tbody>
 </table>
 <p>Producers set the detail with <code>SetDetail</code>; consumers decode it with the generic
@@ -1509,7 +1598,7 @@ domain carry rich, semantic detail. Adding a new domain is just a new package
 that projects into <code>Finding</code>.</p>
 <h2 id="enumerations">Enumerations<a class="headerlink" href="#enumerations" title="Permanent link">&para;</a></h2>
 <ul>
-<li><strong><code>Domain</code></strong> — <code>security</code>, <code>a11y</code>, <code>i18n</code>, <code>qe</code>, <code>compliance</code>, <code>observability</code>.
+<li><strong><code>Domain</code></strong> — <code>security</code>, <code>a11y</code>, <code>i18n</code>, <code>qe</code>, <code>compliance</code>, <code>observability</code>, <code>content</code>.
   <code>Domains()</code> lists them; <code>Valid()</code> checks one.</li>
 <li><strong><code>Status</code></strong> — <code>open</code>, <code>confirmed</code>, <code>remediated</code>, <code>accepted</code>, <code>false_positive</code>,
   <code>resolved</code>. <code>Status.Open()</code> reports whether a finding still needs attention.</li>

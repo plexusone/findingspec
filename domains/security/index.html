@@ -715,6 +715,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#analysis-verification-and-disclosure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Analysis, verification, and disclosure
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Analysis, verification, and disclosure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#private-by-default" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Private by default
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#package-vulnerabilities-sca-container" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -929,6 +957,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1033,6 +1089,34 @@
     
   
     Evidence, Remediation & Metadata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reports
   
 
     
@@ -1267,6 +1351,34 @@
     
   
     Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v0.2.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.2.0
   
 
     
@@ -1545,6 +1657,60 @@ severity while the approval is in effect.</p>
 <code>Severity</code> is unset but a <code>CVSS</code> is present, the finding's severity is derived
 from <code>CVSS.Severity()</code>. <code>RuleID</code> is derived from the most specific classifier
 available — the first CWE, else the first CVE.</p>
+<h2 id="analysis-verification-and-disclosure">Analysis, verification, and disclosure<a class="headerlink" href="#analysis-verification-and-disclosure" title="Permanent link">&para;</a></h2>
+<p>A <code>Vulnerability</code> can carry the analysis that turns a report into an actionable
+record. These fields live in <code>Detail</code>, except <code>Verification</code> and
+<code>Relationships</code>, which belong to the core <code>Finding</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RootCause</code></td>
+<td><code>*RootCause</code></td>
+<td>Why the weakness exists: summary, components, missing control, trust boundary</td>
+</tr>
+<tr>
+<td><code>Impact</code></td>
+<td><code>*Impact</code></td>
+<td>Technical and product consequence, and the surfaces affected</td>
+</tr>
+<tr>
+<td><code>Exploit</code></td>
+<td><code>*Exploit</code></td>
+<td>Preconditions, scenario, and reproduction. Sensitive: keep in private stores</td>
+</tr>
+<tr>
+<td><code>Publication</code></td>
+<td><code>*Publication</code></td>
+<td>Disclosure lifecycle: visibility, state, affected version ranges, GHSA, CVE, OSV, and Go vulnerability IDs</td>
+</tr>
+<tr>
+<td><code>Verification</code></td>
+<td><code>*findingspec.Verification</code></td>
+<td>How the fix was proven: result, method, and the checks that pass</td>
+</tr>
+<tr>
+<td><code>Relationships</code></td>
+<td><code>[]findingspec.Relationship</code></td>
+<td>Typed links to threats, controls, requirements, work items, fixes, and tests</td>
+</tr>
+</tbody>
+</table>
+<p>Relationship targets are opaque references (a roadmap item ID, a commit hash, a
+URI). findingspec does not resolve them, which keeps the core independent of the
+systems it links to.</p>
+<h3 id="private-by-default">Private by default<a class="headerlink" href="#private-by-default" title="Permanent link">&para;</a></h3>
+<p>Findings that describe exploitable weaknesses, especially in releases users may
+still run, belong in a private store. <code>Publication.Visibility</code> records whether a
+sanitized public projection is permitted. Generate a public advisory from the
+private record through an explicit review; do not redact the private record in
+place, and do not commit the original and sanitize it later.</p>
 <h2 id="package-vulnerabilities-sca-container">Package vulnerabilities (SCA &amp; container)<a class="headerlink" href="#package-vulnerabilities-sca-container" title="Permanent link">&para;</a></h2>
 <p>For dependency (SCA) and container scans, <code>Vulnerability</code> carries three extra
 fields that describe the affected package and where it lives. These are the
@@ -1768,6 +1934,11 @@ optionally, the CVSS environmental metrics it justifies.</p>
 <td><code>ApprovedBy</code></td>
 <td><code>string</code></td>
 <td>Approver</td>
+</tr>
+<tr>
+<td><code>Rationale</code></td>
+<td><code>string</code></td>
+<td>Approver's justification for accepting the risk</td>
 </tr>
 <tr>
 <td><code>ExpiresAt</code></td>

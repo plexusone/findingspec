@@ -810,6 +810,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="domains/content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -914,6 +942,34 @@
     
   
     Evidence, Remediation & Metadata
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="reference/report/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reports
   
 
     
@@ -1168,6 +1224,34 @@
   
   
     <li class="md-nav__item">
+      <a href="releases/v0.2.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.2.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="releases/v0.1.0/" class="md-nav__link">
         
   
@@ -1218,8 +1302,8 @@
 
 <h1 id="findingspec">findingspec<a class="headerlink" href="#findingspec" title="Permanent link">&para;</a></h1>
 <p><strong>A domain-neutral model for findings — anything that needs attention — across
-security, accessibility (a11y), internationalization (i18n), and quality
-engineering (qe).</strong></p>
+security, accessibility (a11y), internationalization (i18n), quality
+engineering (qe), and content (claims and their sources).</strong></p>
 <p>A single canonical <a href="concepts/finding-model/"><code>Finding</code></a> type carries the fields
 common to every domain (identity, severity, status, location, evidence,
 remediation). Each domain package defines richer, semantically-typed findings and
@@ -1238,7 +1322,9 @@ tool that found it — while letting each domain keep its own semantic types.</p
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>├── security             vulnerabilities &amp; secrets, CVSS/CWE/CVE, residual risk
 <a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├── a11y                 WCAG accessibility issues
 <a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>├── i18n                 internationalization / localization issues
-<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>└── qe                   quality-engineering findings (E2E tests, journeys)
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>├── qe                   quality-engineering findings (E2E tests, journeys)
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>├── content              claims and their sources: attribution and accuracy
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>└── report               formal Markdown reports for pandoc (DOCX, PDF, HTML)
 </code></pre></div>
 <p>The core package's only external dependency is the shared
 <a href="https://github.com/grokify/priority-frameworks">priority-frameworks</a> severity
@@ -1271,7 +1357,7 @@ vocabulary neutral. Only domain packages depend on the core.</p>
 <li><a href="getting-started/quickstart/">Quick Start</a></li>
 <li><a href="concepts/finding-model/">Finding Model</a> — the canonical <code>Finding</code> and <code>FindingSet</code></li>
 <li><a href="concepts/severity/">Severity</a> — the shared severity vocabulary</li>
-<li>Domains: <a href="domains/security/">Security</a> · <a href="domains/a11y/">a11y</a> · <a href="domains/i18n/">i18n</a> · <a href="domains/qe/">qe</a></li>
+<li>Domains: <a href="domains/security/">Security</a> · <a href="domains/a11y/">a11y</a> · <a href="domains/i18n/">i18n</a> · <a href="domains/qe/">qe</a> · <a href="domains/content/">content</a></li>
 </ul>
 <h2 id="relationship-to-govex">Relationship to govex<a class="headerlink" href="#relationship-to-govex" title="Permanent link">&para;</a></h2>
 <p>The security domain's concepts (inherent vs. residual severity, compensating
