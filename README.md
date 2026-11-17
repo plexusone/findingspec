@@ -47,7 +47,7 @@ findingspec              canonical Finding, FindingSet, and shared vocabulary
 ├── a11y                 WCAG accessibility issues
 ├── i18n                 internationalization / localization issues
 ├── qe                   quality-engineering findings (E2E tests, journeys)
-├── content              claims and their sources: attribution and accuracy
+├── content              claims, their sources and recordings; narration vs. script
 └── report               formal Markdown reports for pandoc (DOCX, PDF, HTML)
 ```
 
@@ -112,7 +112,8 @@ func main() {
 
 ## Content Findings
 
-The `content` domain records problems with claims and their sources, such as a quotation that is not in its source.
+The `content` domain records problems with claims and their sources, such as a quotation that is not in its source
+or recording, and narration that doesn't say its script.
 The claim is the finding's location, so a claim checker can raise findings in a static scan and carry each through
 review with the shared status lifecycle: `open`, then `confirmed` or `false_positive`, then `resolved` or `accepted`.
 
