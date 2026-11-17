@@ -10,6 +10,54 @@
   ],
   "releases": [
     {
+      "version": "v0.3.0",
+      "date": "2026-11-17",
+      "highlights": [
+        {
+          "description": "Content findings for recordings: rules for quotations checked against audio by several speech-to-text engines, and narration findings for a recording that doesn't say its script"
+        }
+      ],
+      "added": [
+        {
+          "description": "`content.RuleQuoteAudioDisputed`, `content.RuleQuoteAudioMismatch` and `content.RuleQuoteAudioUnchecked` for quotations checked against recordings; `content.quote.notFound` covers a quotation not located in the recording",
+          "commit": "dee5ad8"
+        },
+        {
+          "description": "`content.NarrationIssue` and `content.RuleNarrationMismatch`: a recording, or one segment, that doesn't say its script, projected to a finding of type `narration` with the segment as its location; `content.Segment(f)` reads the segment back",
+          "commit": "e29abb2"
+        },
+        {
+          "description": "`content.TypeClaim` and `content.TypeNarration` finding types",
+          "commit": "e29abb2"
+        }
+      ],
+      "changed": [
+        {
+          "description": "`content.ClaimID(f)` returns \"\" for content findings of a type other than `claim`; findings with no type are still read as claim findings",
+          "commit": "e29abb2"
+        }
+      ],
+      "documentation": [
+        {
+          "description": "Content domain: rules for quotations from recordings, and narration findings",
+          "commit": "e29abb2"
+        },
+        {
+          "description": "README describes recordings and narration in the content domain",
+          "commit": "c666c29"
+        },
+        {
+          "description": "v0.3.0 release notes at `docs/releases/v0.3.0.md`"
+        }
+      ],
+      "tests": [
+        {
+          "description": "Audio quotation rules, narration findings, and `ClaimID` for narration and untyped findings",
+          "commit": "e29abb2"
+        }
+      ]
+    },
+    {
       "version": "v0.2.0",
       "date": "2026-11-15",
       "highlights": [
