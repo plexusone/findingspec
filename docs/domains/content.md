@@ -45,6 +45,21 @@ Common rule IDs; scanners may add their own.
 | `content.claim.notAtomic` | The claim states several facts |
 | `content.claim.verdict` | A judge found the claim not supported as written |
 
+### Quotations from Recordings
+
+A quotation from a podcast, interview or talk is checked by cutting a clip of the recording around it and comparing
+what several speech-to-text engines heard. `content.quote.notFound` applies when the quotation can't be located in
+the recording; three more rules cover what the comparison can't settle.
+
+| Rule | Problem |
+|------|---------|
+| `content.quote.audioDisputed` | The engines disagree on a substantive word: a number, a negation, a name or a term |
+| `content.quote.audioMismatch` | The engines agree with each other but not with the quotation; the finding gives what they heard |
+| `content.quote.audioUnchecked` | Too few engines produced a transcript, or the clip could not be cut |
+
+Put what each engine heard, and the clip's start and end, in the finding's `Evidence`, so a reviewer can listen to
+the same seconds.
+
 ## Projection to Finding
 
 `ToFinding()` projects the issue into a `findingspec.Finding` in the `content` domain:

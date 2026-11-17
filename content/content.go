@@ -1,7 +1,8 @@
 // Package content defines semantic types for content findings — problems with
 // the accuracy and attribution of published content, such as a claim its
 // cited source does not support or a quotation that cannot be found in its
-// source — and projects them into the domain-neutral findingspec.Finding.
+// source or recording — and projects them into the domain-neutral
+// findingspec.Finding.
 package content
 
 import (
@@ -45,6 +46,23 @@ const (
 	// RuleVerdict: a judge found the claim not supported as written, for
 	// example contested, unsupported or contradicted.
 	RuleVerdict = "content.claim.verdict"
+
+	// Rules for quotations from recordings, such as podcasts, interviews and
+	// talks, checked by comparing what several speech-to-text engines heard
+	// in a clip of the recording. RuleQuoteNotFound also applies: the
+	// quotation could not be located in the recording.
+
+	// RuleQuoteAudioDisputed: the engines disagree with each other on a
+	// substantive word of the quotation, such as a number, a negation, a
+	// name or a term, so the recording does not settle the wording.
+	RuleQuoteAudioDisputed = "content.quote.audioDisputed"
+	// RuleQuoteAudioMismatch: the engines agree with each other but not with
+	// the quotation, so the quotation is not what was said. The finding
+	// gives the wording the engines heard.
+	RuleQuoteAudioMismatch = "content.quote.audioMismatch"
+	// RuleQuoteAudioUnchecked: too few engines produced a transcript, or the
+	// clip could not be cut, so the quotation was not checked.
+	RuleQuoteAudioUnchecked = "content.quote.audioUnchecked"
 )
 
 // Issue is a content finding: a problem with one claim, or with one of the

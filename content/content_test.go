@@ -1,6 +1,7 @@
 package content_test
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/plexusone/findingspec"
@@ -43,5 +44,21 @@ func TestClaimIDOtherDomain(t *testing.T) {
 func TestContentDomainValid(t *testing.T) {
 	if !findingspec.DomainContent.Valid() {
 		t.Error("content domain is not valid")
+	}
+}
+
+func TestAudioQuoteRules(t *testing.T) {
+	f := content.Issue{
+		ID: "CF-2", Rule: content.RuleQuoteAudioMismatch, Title: "Quotation differs from the recording",
+		ClaimID: "claim-agentic", Statement: "AI assisted gentle coding", SourceRef: "src-aws-podcast-753",
+		Evidence: []findingspec.Evidence{{Kind: "transcript", Summary: "deepgram, elevenlabs and openai heard: AI assisted agentic coding", URI: "checks/round-1/audio.json"}},
+	}.ToFinding()
+	if f.RuleID != "content.quote.audioMismatch" || f.Type != "claim" || content.ClaimID(f) != "claim-agentic" {
+		t.Errorf("finding = %+v", f)
+	}
+	for _, r := range []string{content.RuleQuoteAudioDisputed, content.RuleQuoteAudioMismatch, content.RuleQuoteAudioUnchecked} {
+		if !strings.HasPrefix(r, "content.") {
+			t.Errorf("rule %q lacks the content prefix", r)
+		}
 	}
 }
