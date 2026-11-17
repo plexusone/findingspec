@@ -53,12 +53,39 @@ func TestAudioQuoteRules(t *testing.T) {
 		ClaimID: "claim-agentic", Statement: "AI assisted gentle coding", SourceRef: "src-aws-podcast-753",
 		Evidence: []findingspec.Evidence{{Kind: "transcript", Summary: "deepgram, elevenlabs and openai heard: AI assisted agentic coding", URI: "checks/round-1/audio.json"}},
 	}.ToFinding()
-	if f.RuleID != "content.quote.audioMismatch" || f.Type != "claim" || content.ClaimID(f) != "claim-agentic" {
+	if f.RuleID != "content.quote.audioMismatch" || f.Type != content.TypeClaim || content.ClaimID(f) != "claim-agentic" {
 		t.Errorf("finding = %+v", f)
 	}
-	for _, r := range []string{content.RuleQuoteAudioDisputed, content.RuleQuoteAudioMismatch, content.RuleQuoteAudioUnchecked} {
+	for _, r := range []string{content.RuleQuoteAudioDisputed, content.RuleQuoteAudioMismatch, content.RuleQuoteAudioUnchecked, content.RuleNarrationMismatch} {
 		if !strings.HasPrefix(r, "content.") {
 			t.Errorf("rule %q lacks the content prefix", r)
 		}
+	}
+}
+
+func TestNarrationIssueToFinding(t *testing.T) {
+	f := content.NarrationIssue{
+		ID: "NAR-1", Rule: content.RuleNarrationMismatch, Title: "Narration drops a word",
+		Document: "sections/02/deck/index.html", Segment: "utm-tags", Expected: "Tag every link with UTM parameters.",
+		Heard: "Tag every link with parameters.", Recording: "audio/utm-tags.mp3",
+	}.ToFinding()
+	if f.Domain != findingspec.DomainContent || f.Type != content.TypeNarration || f.Severity != findingspec.SeverityMedium {
+		t.Errorf("finding = %+v", f)
+	}
+	if content.Segment(f) != "utm-tags" {
+		t.Errorf("Segment = %q", content.Segment(f))
+	}
+	if content.ClaimID(f) != "" {
+		t.Errorf("ClaimID of a narration finding = %q, want empty", content.ClaimID(f))
+	}
+	if len(f.Tags) != 2 || f.Tags[0] != "segment:utm-tags" || f.Tags[1] != "recording:audio/utm-tags.mp3" {
+		t.Errorf("tags = %v", f.Tags)
+	}
+}
+
+func TestClaimIDUntypedFinding(t *testing.T) {
+	f := findingspec.Finding{Domain: findingspec.DomainContent, Location: &findingspec.Location{Component: "claim-x"}}
+	if content.ClaimID(f) != "claim-x" {
+		t.Errorf("an untyped content finding should still give its claim")
 	}
 }

@@ -70,7 +70,34 @@ the same seconds.
 - defaults `Severity` to `findingspec.SeverityMedium`;
 - adds `claim:<id>` and `source:<ref>` tags.
 
-`content.ClaimID(f)` returns the claim a content finding is about.
+`content.ClaimID(f)` returns the claim a content finding is about. It returns `""` for findings of another type,
+such as narration; content findings with no type are read as claim findings.
+
+## Narration
+
+`NarrationIssue` is a recording, or one segment of it, that doesn't say its script, such as a course lesson's
+voice-over.
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `ID` | `string` | Stable identifier |
+| `Rule` | `string` | `content.narration.mismatch` |
+| `Title` | `string` | Short human-readable summary |
+| `Description` | `string` | Detailed explanation |
+| `Document` | `string` | The file that holds the script, such as a slide deck |
+| `Segment` | `string` | The part of the script, such as a slide's ID |
+| `Expected` | `string` | The script's wording |
+| `Heard` | `string` | What the engines heard, when they agree |
+| `Recording` | `string` | The audio file checked |
+| `Severity`, `Confidence`, `Evidence`, `Remediation`, `Status`, `DetectedAt` | | As for `Issue` |
+
+| Rule | Problem |
+|------|---------|
+| `content.narration.mismatch` | Words are dropped, added or misheard by every engine |
+
+`ToFinding()` sets `Type` to `narration` and uses the segment as the location: `Location.Component` is the segment
+ID, `Location.File` the document and `Location.Snippet` the expected wording. It adds `segment:<id>` and
+`recording:<file>` tags. `content.Segment(f)` returns the segment a narration finding is about.
 
 ## Status Through a Review Funnel
 
