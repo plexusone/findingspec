@@ -23,7 +23,7 @@
           "commit": "dee5ad8"
         },
         {
-          "description": "`content.NarrationIssue` and `content.RuleNarrationMismatch`: a recording, or one segment, that doesn't say its script, projected to a finding of type `narration` with the segment as its location; `content.Segment(f)` reads the segment back",
+          "description": "`content.NarrationIssue` and `content.RuleNarrationMismatch`: a recording, or one segment, that doesn't say its script, projected to a finding of type `narration` with the segment as its location and what the engines heard as transcript evidence; `content.Segment(f)` reads the segment back",
           "commit": "e29abb2"
         },
         {
@@ -54,6 +54,10 @@
         {
           "description": "Audio quotation rules, narration findings, and `ClaimID` for narration and untyped findings",
           "commit": "e29abb2"
+        },
+        {
+          "description": "Narration findings carry what the engines heard without modifying the caller's evidence",
+          "commit": "eec7049"
         }
       ]
     },
