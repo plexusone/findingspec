@@ -181,9 +181,10 @@ type NarrationIssue struct {
 // ToFinding projects the narration issue into a findingspec.Finding in the
 // content domain with type "narration". The segment is the location:
 // Location.Component is the segment ID, Location.File the script's document
-// and Location.Snippet the expected wording. Severity defaults to Medium.
-// The segment and recording are also tags, "segment:<id>" and
-// "recording:<file>".
+// and Location.Snippet the expected wording. Heard, when set, is added to
+// the evidence as a "transcript" entry, after a copy of the issue's own
+// evidence. Severity defaults to Medium. The segment and recording are also
+// tags, "segment:<id>" and "recording:<file>".
 func (i NarrationIssue) ToFinding() findingspec.Finding {
 	sev := i.Severity
 	if sev == "" {
@@ -192,6 +193,12 @@ func (i NarrationIssue) ToFinding() findingspec.Finding {
 	tags := []string{"segment:" + i.Segment}
 	if i.Recording != "" {
 		tags = append(tags, "recording:"+i.Recording)
+	}
+	evidence := i.Evidence
+	if i.Heard != "" {
+		// A new slice, so the caller's evidence is never modified.
+		evidence = append(append([]findingspec.Evidence(nil), i.Evidence...),
+			findingspec.Evidence{Kind: "transcript", Summary: "Heard: " + i.Heard})
 	}
 	return findingspec.Finding{
 		ID:          i.ID,
@@ -204,7 +211,7 @@ func (i NarrationIssue) ToFinding() findingspec.Finding {
 		Confidence:  i.Confidence,
 		Status:      i.Status,
 		Location:    &findingspec.Location{File: i.Document, Component: i.Segment, Snippet: i.Expected},
-		Evidence:    i.Evidence,
+		Evidence:    evidence,
 		Remediation: i.Remediation,
 		Tags:        tags,
 		DetectedAt:  i.DetectedAt,

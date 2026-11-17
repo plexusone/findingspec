@@ -81,6 +81,18 @@ func TestNarrationIssueToFinding(t *testing.T) {
 	if len(f.Tags) != 2 || f.Tags[0] != "segment:utm-tags" || f.Tags[1] != "recording:audio/utm-tags.mp3" {
 		t.Errorf("tags = %v", f.Tags)
 	}
+	if len(f.Evidence) != 1 || f.Evidence[0].Kind != "transcript" || f.Evidence[0].Summary != "Heard: Tag every link with parameters." {
+		t.Errorf("evidence = %+v", f.Evidence)
+	}
+}
+
+func TestNarrationIssueKeepsCallerEvidence(t *testing.T) {
+	own := make([]findingspec.Evidence, 1, 4)
+	own[0] = findingspec.Evidence{Kind: "audio", URI: "audio/a.mp3"}
+	f := content.NarrationIssue{Segment: "a", Heard: "x", Evidence: own}.ToFinding()
+	if len(f.Evidence) != 2 || len(own) != 1 || own[:2][1].Kind != "" {
+		t.Errorf("caller evidence modified or transcript missing: %+v, own %+v", f.Evidence, own[:2])
+	}
 }
 
 func TestClaimIDUntypedFinding(t *testing.T) {

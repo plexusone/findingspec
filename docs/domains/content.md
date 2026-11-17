@@ -96,8 +96,8 @@ voice-over.
 | `content.narration.mismatch` | Words are dropped, added or misheard by every engine |
 
 `ToFinding()` sets `Type` to `narration` and uses the segment as the location: `Location.Component` is the segment
-ID, `Location.File` the document and `Location.Snippet` the expected wording. It adds `segment:<id>` and
-`recording:<file>` tags. `content.Segment(f)` returns the segment a narration finding is about.
+ID, `Location.File` the document and `Location.Snippet` the expected wording. `Heard`, when set, becomes a `transcript`
+evidence entry after the issue's own evidence. It adds `segment:<id>` and `recording:<file>` tags. `content.Segment(f)` returns the segment a narration finding is about.
 
 ## Status Through a Review Funnel
 
