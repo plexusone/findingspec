@@ -10,6 +10,47 @@
   ],
   "releases": [
     {
+      "version": "v0.4.0",
+      "date": "2026-11-18",
+      "highlights": [
+        {
+          "description": "Merge findings from several producers into one set, refusing duplicate IDs, and build stable content finding IDs from a producer prefix, the subject and the rule"
+        },
+        {
+          "description": "Content rules for reviewing claims and their citations: less precise than the sources, no named subject, duplicate or off-claim quotations, a mislabelled stance, and a reviewer's note"
+        }
+      ],
+      "added": [
+        {
+          "description": "`findingspec.Merge` combines finding sets in order and fails with `ErrDuplicateID`, naming each repeated ID",
+          "commit": "56f7040"
+        },
+        {
+          "description": "`content.FindingID(prefix, subject, rule)` builds `<prefix>-<subject>-<rule suffix>`, stable across runs",
+          "commit": "ef51eab"
+        },
+        {
+          "description": "`content.RuleLessPrecise`, `content.RuleSubjectMissing`, `content.RuleEvidenceDuplicate`, `content.RuleEvidenceOffClaim`, `content.RuleEvidenceStance` and `content.RuleReviewNote`",
+          "commit": "ef51eab"
+        }
+      ],
+      "documentation": [
+        {
+          "description": "Content domain: the review rules and finding IDs; interchange: combining findings from several producers",
+          "commit": "42db3b1"
+        },
+        {
+          "description": "v0.4.0 release notes at `docs/releases/v0.4.0.md`"
+        }
+      ],
+      "tests": [
+        {
+          "description": "Merging finding sets with and without duplicate IDs, and building finding IDs",
+          "commit": "b489ef7"
+        }
+      ]
+    },
+    {
       "version": "v0.3.0",
       "date": "2026-11-17",
       "highlights": [
@@ -137,7 +178,7 @@
       "commit": "e0d5aec",
       "highlights": [
         {
-          "description": "Initial release \u2014 a domain-neutral model that normalizes findings across security, accessibility (a11y), internationalization (i18n), and quality engineering (qe) into one canonical `Finding` with a typed, per-type `Detail` subsection"
+          "description": "Initial release — a domain-neutral model that normalizes findings across security, accessibility (a11y), internationalization (i18n), and quality engineering (qe) into one canonical `Finding` with a typed, per-type `Detail` subsection"
         },
         {
           "description": "Two-level `Domain` + `Type` taxonomy with ingest adapters for open-source scanners: gitleaks, axe-core, and govulncheck in-repo (Grype, Trivy, and AWS Inspector via their tool libraries)"
@@ -152,11 +193,11 @@
           "commit": "62ea7a4"
         },
         {
-          "description": "`findingspec`: shared vocabulary \u2014 `Severity` (via the priority-frameworks Severity framework), `Status`, `Confidence`, `Domain`, `Source`, `Location` (code, runtime, or RFC 6901 JSON Pointer), `Evidence`, `Remediation`, `Reference`",
+          "description": "`findingspec`: shared vocabulary — `Severity` (via the priority-frameworks Severity framework), `Status`, `Confidence`, `Domain`, `Source`, `Location` (code, runtime, or RFC 6901 JSON Pointer), `Evidence`, `Remediation`, `Reference`",
           "commit": "62ea7a4"
         },
         {
-          "description": "`findingspec`: typed per-type `Detail` subsection \u2014 `Finding.Type`, `SetDetail`, and generic `DetailAs[T]`",
+          "description": "`findingspec`: typed per-type `Detail` subsection — `Finding.Type`, `SetDetail`, and generic `DetailAs[T]`",
           "commit": "62ea7a4"
         },
         {
