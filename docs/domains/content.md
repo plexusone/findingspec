@@ -44,6 +44,12 @@ Common rule IDs; scanners may add their own.
 | `content.claim.singleSource` | A claim stating dates, figures or quotations rests on one source |
 | `content.claim.notAtomic` | The claim states several facts |
 | `content.claim.verdict` | A judge found the claim not supported as written |
+| `content.claim.lessPrecise` | The claim is accurate but leaves out a full name, date or figure its sources give |
+| `content.claim.subjectMissing` | The claim, or its supporting quotation, does not name who or what it is about |
+| `content.evidence.duplicate` | A quotation repeats, or is contained in, another the claim cites from the same source |
+| `content.evidence.offClaim` | A supporting quotation bears on no part of the claim |
+| `content.evidence.stance` | A citation's stance, such as disputes, is not what its passage shows |
+| `content.review.note` | A person's note on the claim that no other rule describes |
 
 ### Quotations from Recordings
 
@@ -59,6 +65,19 @@ the recording; three more rules cover what the comparison can't settle.
 
 Put what each engine heard, and the clip's start and end, in the finding's `Evidence`, so a reviewer can listen to
 the same seconds.
+
+## Finding IDs
+
+`content.FindingID(prefix, subject, rule)` builds a stable ID: the producer's prefix, the subject (a claim ID, or a
+segment ID for narration) and the rule's last segment.
+
+```go
+content.FindingID("CF", "claim-founding", content.RuleLessPrecise) // "CF-claim-founding-lessPrecise"
+```
+
+The same finding gets the same ID each time it is raised, so a decision about it stays attached from one review round
+to the next. Give each producer its own prefix, so findings from several tools can be merged without collisions (see
+[Combining findings](../concepts/interchange.md#combining-findings-from-several-producers)).
 
 ## Projection to Finding
 

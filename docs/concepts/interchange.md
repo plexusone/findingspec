@@ -141,6 +141,23 @@ Note: many Go OSV entries carry a CVSS vector but no numeric score, so severity
 can fall back to Informational — reachability is the primary signal here until a
 CVSS vector→score calculator lands (see roadmap).
 
+## Combining findings from several producers
+
+When several tools check the same work, such as static checks, people's review notes and speech-to-text checks of
+recordings, let each write its own `FindingSet`, then combine them with `findingspec.Merge`:
+
+```go
+all, err := findingspec.Merge(static, notes, audio)
+if errors.Is(err, findingspec.ErrDuplicateID) {
+	// two producers built the same ID
+}
+```
+
+`Merge` keeps the findings in order and fails, naming each repeated ID, when two findings share one. Separate sets let
+the producers run independently without overwriting each other's results. Give each producer its own ID prefix and
+build IDs from the subject and rule rather than a counter, as `content.FindingID` does, so an ID is stable across runs
+and never collides with another producer's.
+
 ## Export adapters (planned)
 
 The same IR projects outward — SARIF, OCSF, AWS ASFF, VEX, DefectDojo import, and
