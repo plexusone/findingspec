@@ -6,6 +6,7 @@
 package content
 
 import (
+	"strings"
 	"time"
 
 	"github.com/plexusone/findingspec"
@@ -46,6 +47,25 @@ const (
 	// RuleVerdict: a judge found the claim not supported as written, for
 	// example contested, unsupported or contradicted.
 	RuleVerdict = "content.claim.verdict"
+	// RuleLessPrecise: the claim is accurate but says less than its
+	// sources, leaving out a full name, a date or a figure they give.
+	RuleLessPrecise = "content.claim.lessPrecise"
+	// RuleSubjectMissing: the claim, or the quotation supporting it, does
+	// not name who or what it is about, such as a quotation that begins
+	// with a pronoun.
+	RuleSubjectMissing = "content.claim.subjectMissing"
+	// RuleEvidenceDuplicate: a quotation repeats, or is contained in,
+	// another quotation the claim cites from the same source.
+	RuleEvidenceDuplicate = "content.evidence.duplicate"
+	// RuleEvidenceOffClaim: a supporting quotation bears on no part of the
+	// claim, such as a passage left from an earlier wording.
+	RuleEvidenceOffClaim = "content.evidence.offClaim"
+	// RuleEvidenceStance: a citation's stance, such as disputes, is not
+	// what its passage shows.
+	RuleEvidenceStance = "content.evidence.stance"
+	// RuleReviewNote: a person's note on a claim that no other rule
+	// describes.
+	RuleReviewNote = "content.review.note"
 
 	// Rules for quotations from recordings, such as podcasts, interviews and
 	// talks, checked by comparing what several speech-to-text engines heard
@@ -225,4 +245,27 @@ func Segment(f findingspec.Finding) string {
 		return ""
 	}
 	return f.Location.Component
+}
+
+// FindingID builds a stable finding ID from the producer's prefix, the
+// finding's subject and its rule: "<prefix>-<subject>-<rule suffix>", where
+// the suffix is the rule's last segment, such as
+// FindingID("CF", "claim-founding", RuleLessPrecise) =
+// "CF-claim-founding-lessPrecise". The same finding gets the same ID every
+// time it is raised, so decisions about it stay attached across review
+// rounds, and producers with different prefixes never collide when their
+// findings are merged. The subject is a claim ID for claim findings and a
+// segment ID for narration findings.
+func FindingID(prefix, subject, rule string) string {
+	suffix := rule
+	if i := strings.LastIndex(rule, "."); i >= 0 {
+		suffix = rule[i+1:]
+	}
+	parts := make([]string, 0, 3)
+	for _, p := range []string{prefix, subject, suffix} {
+		if p != "" {
+			parts = append(parts, p)
+		}
+	}
+	return strings.Join(parts, "-")
 }
