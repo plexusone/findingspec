@@ -822,6 +822,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#finding-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding IDs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#projection-to-finding" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1249,6 +1260,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../releases/v0.4.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.4.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../releases/v0.3.0/" class="md-nav__link">
         
   
@@ -1395,6 +1434,17 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finding-ids" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Finding IDs
+      
+    </span>
+  </a>
   
 </li>
       
@@ -1597,6 +1647,30 @@ each finding.</p>
 <td><code>content.claim.verdict</code></td>
 <td>A judge found the claim not supported as written</td>
 </tr>
+<tr>
+<td><code>content.claim.lessPrecise</code></td>
+<td>The claim is accurate but leaves out a full name, date or figure its sources give</td>
+</tr>
+<tr>
+<td><code>content.claim.subjectMissing</code></td>
+<td>The claim, or its supporting quotation, does not name who or what it is about</td>
+</tr>
+<tr>
+<td><code>content.evidence.duplicate</code></td>
+<td>A quotation repeats, or is contained in, another the claim cites from the same source</td>
+</tr>
+<tr>
+<td><code>content.evidence.offClaim</code></td>
+<td>A supporting quotation bears on no part of the claim</td>
+</tr>
+<tr>
+<td><code>content.evidence.stance</code></td>
+<td>A citation's stance, such as disputes, is not what its passage shows</td>
+</tr>
+<tr>
+<td><code>content.review.note</code></td>
+<td>A person's note on the claim that no other rule describes</td>
+</tr>
 </tbody>
 </table>
 <h3 id="quotations-from-recordings">Quotations from Recordings<a class="headerlink" href="#quotations-from-recordings" title="Permanent link">&para;</a></h3>
@@ -1627,6 +1701,14 @@ the recording; three more rules cover what the comparison can't settle.</p>
 </table>
 <p>Put what each engine heard, and the clip's start and end, in the finding's <code>Evidence</code>, so a reviewer can listen to
 the same seconds.</p>
+<h2 id="finding-ids">Finding IDs<a class="headerlink" href="#finding-ids" title="Permanent link">&para;</a></h2>
+<p><code>content.FindingID(prefix, subject, rule)</code> builds a stable ID: the producer's prefix, the subject (a claim ID, or a
+segment ID for narration) and the rule's last segment.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nx">content</span><span class="p">.</span><span class="nx">FindingID</span><span class="p">(</span><span class="s">&quot;CF&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;claim-founding&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">content</span><span class="p">.</span><span class="nx">RuleLessPrecise</span><span class="p">)</span><span class="w"> </span><span class="c1">// &quot;CF-claim-founding-lessPrecise&quot;</span>
+</code></pre></div>
+<p>The same finding gets the same ID each time it is raised, so a decision about it stays attached from one review round
+to the next. Give each producer its own prefix, so findings from several tools can be merged without collisions (see
+<a href="../../concepts/interchange/#combining-findings-from-several-producers">Combining findings</a>).</p>
 <h2 id="projection-to-finding">Projection to Finding<a class="headerlink" href="#projection-to-finding" title="Permanent link">&para;</a></h2>
 <p><code>ToFinding()</code> projects the issue into a <code>findingspec.Finding</code> in the <code>content</code> domain:</p>
 <ul>

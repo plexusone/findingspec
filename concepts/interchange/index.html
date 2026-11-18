@@ -654,6 +654,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#combining-findings-from-several-producers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining findings from several producers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#export-adapters-planned" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1271,6 +1282,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../releases/v0.4.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.4.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../releases/v0.3.0/" class="md-nav__link">
         
   
@@ -1454,6 +1493,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#combining-findings-from-several-producers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining findings from several producers
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#export-adapters-planned" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1624,6 +1674,18 @@ one is usually noise. Consumers can filter on it via
 <p>Note: many Go OSV entries carry a CVSS vector but no numeric score, so severity
 can fall back to Informational — reachability is the primary signal here until a
 CVSS vector→score calculator lands (see roadmap).</p>
+<h2 id="combining-findings-from-several-producers">Combining findings from several producers<a class="headerlink" href="#combining-findings-from-several-producers" title="Permanent link">&para;</a></h2>
+<p>When several tools check the same work, such as static checks, people's review notes and speech-to-text checks of
+recordings, let each write its own <code>FindingSet</code>, then combine them with <code>findingspec.Merge</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nx">all</span><span class="p">,</span><span class="w"> </span><span class="nx">err</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">findingspec</span><span class="p">.</span><span class="nx">Merge</span><span class="p">(</span><span class="nx">static</span><span class="p">,</span><span class="w"> </span><span class="nx">notes</span><span class="p">,</span><span class="w"> </span><span class="nx">audio</span><span class="p">)</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">if</span><span class="w"> </span><span class="nx">errors</span><span class="p">.</span><span class="nx">Is</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span><span class="w"> </span><span class="nx">findingspec</span><span class="p">.</span><span class="nx">ErrDuplicateID</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="c1">// two producers built the same ID</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="p">}</span>
+</code></pre></div>
+<p><code>Merge</code> keeps the findings in order and fails, naming each repeated ID, when two findings share one. Separate sets let
+the producers run independently without overwriting each other's results. Give each producer its own ID prefix and
+build IDs from the subject and rule rather than a counter, as <code>content.FindingID</code> does, so an ID is stable across runs
+and never collides with another producer's.</p>
 <h2 id="export-adapters-planned">Export adapters (planned)<a class="headerlink" href="#export-adapters-planned" title="Permanent link">&para;</a></h2>
 <p>The same IR projects outward — SARIF, OCSF, AWS ASFF, VEX, DefectDojo import, and
 POA&amp;M — so findingspec interoperates with existing pipelines rather than
