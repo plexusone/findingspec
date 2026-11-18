@@ -802,6 +802,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quotations-from-recordings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quotations from Recordings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -809,6 +826,17 @@
     <span class="md-ellipsis">
       
         Projection to Finding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#narration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Narration
       
     </span>
   </a>
@@ -1221,6 +1249,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../releases/v0.3.0/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.3.0
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../releases/v0.2.0/" class="md-nav__link">
         
   
@@ -1323,6 +1379,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#quotations-from-recordings" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quotations from Recordings
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1330,6 +1403,17 @@
     <span class="md-ellipsis">
       
         Projection to Finding
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#narration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Narration
       
     </span>
   </a>
@@ -1515,6 +1599,34 @@ each finding.</p>
 </tr>
 </tbody>
 </table>
+<h3 id="quotations-from-recordings">Quotations from Recordings<a class="headerlink" href="#quotations-from-recordings" title="Permanent link">&para;</a></h3>
+<p>A quotation from a podcast, interview or talk is checked by cutting a clip of the recording around it and comparing
+what several speech-to-text engines heard. <code>content.quote.notFound</code> applies when the quotation can't be located in
+the recording; three more rules cover what the comparison can't settle.</p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Problem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>content.quote.audioDisputed</code></td>
+<td>The engines disagree on a substantive word: a number, a negation, a name or a term</td>
+</tr>
+<tr>
+<td><code>content.quote.audioMismatch</code></td>
+<td>The engines agree with each other but not with the quotation; the finding gives what they heard</td>
+</tr>
+<tr>
+<td><code>content.quote.audioUnchecked</code></td>
+<td>Too few engines produced a transcript, or the clip could not be cut</td>
+</tr>
+</tbody>
+</table>
+<p>Put what each engine heard, and the clip's start and end, in the finding's <code>Evidence</code>, so a reviewer can listen to
+the same seconds.</p>
 <h2 id="projection-to-finding">Projection to Finding<a class="headerlink" href="#projection-to-finding" title="Permanent link">&para;</a></h2>
 <p><code>ToFinding()</code> projects the issue into a <code>findingspec.Finding</code> in the <code>content</code> domain:</p>
 <ul>
@@ -1524,7 +1636,89 @@ each finding.</p>
 <li>defaults <code>Severity</code> to <code>findingspec.SeverityMedium</code>;</li>
 <li>adds <code>claim:&lt;id&gt;</code> and <code>source:&lt;ref&gt;</code> tags.</li>
 </ul>
-<p><code>content.ClaimID(f)</code> returns the claim a content finding is about.</p>
+<p><code>content.ClaimID(f)</code> returns the claim a content finding is about. It returns <code>""</code> for findings of another type,
+such as narration; content findings with no type are read as claim findings.</p>
+<h2 id="narration">Narration<a class="headerlink" href="#narration" title="Permanent link">&para;</a></h2>
+<p><code>NarrationIssue</code> is a recording, or one segment of it, that doesn't say its script, such as a course lesson's
+voice-over.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ID</code></td>
+<td><code>string</code></td>
+<td>Stable identifier</td>
+</tr>
+<tr>
+<td><code>Rule</code></td>
+<td><code>string</code></td>
+<td><code>content.narration.mismatch</code></td>
+</tr>
+<tr>
+<td><code>Title</code></td>
+<td><code>string</code></td>
+<td>Short human-readable summary</td>
+</tr>
+<tr>
+<td><code>Description</code></td>
+<td><code>string</code></td>
+<td>Detailed explanation</td>
+</tr>
+<tr>
+<td><code>Document</code></td>
+<td><code>string</code></td>
+<td>The file that holds the script, such as a slide deck</td>
+</tr>
+<tr>
+<td><code>Segment</code></td>
+<td><code>string</code></td>
+<td>The part of the script, such as a slide's ID</td>
+</tr>
+<tr>
+<td><code>Expected</code></td>
+<td><code>string</code></td>
+<td>The script's wording</td>
+</tr>
+<tr>
+<td><code>Heard</code></td>
+<td><code>string</code></td>
+<td>What the engines heard, when they agree</td>
+</tr>
+<tr>
+<td><code>Recording</code></td>
+<td><code>string</code></td>
+<td>The audio file checked</td>
+</tr>
+<tr>
+<td><code>Severity</code>, <code>Confidence</code>, <code>Evidence</code>, <code>Remediation</code>, <code>Status</code>, <code>DetectedAt</code></td>
+<td></td>
+<td>As for <code>Issue</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Problem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>content.narration.mismatch</code></td>
+<td>Words are dropped, added or misheard by every engine</td>
+</tr>
+</tbody>
+</table>
+<p><code>ToFinding()</code> sets <code>Type</code> to <code>narration</code> and uses the segment as the location: <code>Location.Component</code> is the segment
+ID, <code>Location.File</code> the document and <code>Location.Snippet</code> the expected wording. <code>Heard</code>, when set, becomes a <code>transcript</code>
+evidence entry after the issue's own evidence. It adds <code>segment:&lt;id&gt;</code> and <code>recording:&lt;file&gt;</code> tags. <code>content.Segment(f)</code> returns the segment a narration finding is about.</p>
 <h2 id="status-through-a-review-funnel">Status Through a Review Funnel<a class="headerlink" href="#status-through-a-review-funnel" title="Permanent link">&para;</a></h2>
 <p>The shared status lifecycle follows a finding through the stages of a review: a static scan opens it (<code>open</code>), a
 model or person confirms it (<code>confirmed</code>) or dismisses it (<code>false_positive</code>), the claim or its citation is fixed
