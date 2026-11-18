@@ -1,6 +1,11 @@
 package findingspec
 
-import "sort"
+import (
+	"errors"
+	"fmt"
+	"sort"
+	"strings"
+)
 
 // FindingSet is a collection of findings with convenience helpers for
 // filtering, counting, and ordering across domains.
@@ -16,6 +21,37 @@ func NewFindingSet(findings ...Finding) *FindingSet {
 // Add appends findings to the set.
 func (s *FindingSet) Add(findings ...Finding) {
 	s.Findings = append(s.Findings, findings...)
+}
+
+// ErrDuplicateID is returned by Merge when two findings share an ID.
+var ErrDuplicateID = errors.New("findingspec: duplicate finding ID")
+
+// Merge combines the findings of several sets, in order, into a new set,
+// for example the findings that several tools wrote about the same work.
+// IDs must be unique across the sets: two findings with the same non-empty
+// ID make Merge fail with ErrDuplicateID, naming each repeated ID, since
+// each producer should build IDs that cannot collide with another's. Nil
+// sets are skipped.
+func Merge(sets ...*FindingSet) (*FindingSet, error) {
+	out := NewFindingSet()
+	seen := map[string]bool{}
+	var dups []string
+	for _, s := range sets {
+		if s == nil {
+			continue
+		}
+		for _, f := range s.Findings {
+			if f.ID != "" && seen[f.ID] {
+				dups = append(dups, f.ID)
+			}
+			seen[f.ID] = true
+			out.Add(f)
+		}
+	}
+	if len(dups) > 0 {
+		return nil, fmt.Errorf("%w: %s", ErrDuplicateID, strings.Join(dups, ", "))
+	}
+	return out, nil
 }
 
 // Len returns the number of findings in the set.
